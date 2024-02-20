@@ -1,0 +1,12 @@
+# This is a generated file; do not edit or check into version control.
+integration_test=/home/matthias/bin/flutter/packages/integration_test/
+path_provider=/home/matthias/.pub-cache/hosted/pub.dev/path_provider-2.1.2/
+path_provider_android=/home/matthias/.pub-cache/hosted/pub.dev/path_provider_android-2.2.2/
+path_provider_foundation=/home/matthias/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.2/
+path_provider_linux=/home/matthias/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/
+path_provider_windows=/home/matthias/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.1/
+video_player=/home/matthias/.pub-cache/hosted/pub.dev/video_player-2.6.0/
+video_player_android=/home/matthias/.pub-cache/hosted/pub.dev/video_player_android-2.4.3/
+video_player_avfoundation=/home/matthias/.pub-cache/hosted/pub.dev/video_player_avfoundation-2.4.2/
+video_player_elinux=/home/matthias/.pub-cache/git/flutter-elinux-plugins-f64cd866586ce9b54ae4e61c90eceaab81fde2f6/packages/video_player/
+video_player_web=/home/matthias/.pub-cache/hosted/pub.dev/video_player_web-2.0.15/

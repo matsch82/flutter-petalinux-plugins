@@ -1,0 +1,35 @@
+name: video_player_example
+description: Demonstrates how to use the video_player plugin.
+publish_to: none
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: ^1.0.0
+  video_player: ^2.4.7
+  video_player_elinux:
+    git:
+      url: https://github.com/matsch82/flutter-elinux-plugins.git
+      path: packages/video_player
+      ref: petalinux
+    
+
+dev_dependencies:
+  flutter_driver:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  path_provider: ^2.0.6
+  test: any
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/output.ogv
+    - assets/cs_logo_2.svg
