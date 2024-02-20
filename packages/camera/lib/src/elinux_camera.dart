@@ -109,7 +109,7 @@ class ELinuxCamera extends CameraPlatform {
             : null,
         'enableAudio': enableAudio,
       });
-      stderr.writeln("mschaff: elinux createCamera");
+      stderr.writeln("mschaff: elinux_camera.dart createCamera");
       return reply!['cameraId']! as int;
     } on PlatformException catch (e) {
       throw CameraException(e.code, e.message);
@@ -121,10 +121,12 @@ class ELinuxCamera extends CameraPlatform {
     int cameraId, {
     ImageFormatGroup imageFormatGroup = ImageFormatGroup.unknown,
   }) {
-    stderr.writeln('initializeCamera elinux Interface id: '+cameraId);
+    stderr.writeln('mschaff: elinux_camera.dart: initializeCamera elinux Interface id: '+ cameraId.toString());
     _channels.putIfAbsent(cameraId, () {
+      String chanName = "plugins.flutter.io/camera/camera"+cameraId.toString();
+      stderr.writeln("mschaff: elinux_camera.dart methd channel name :"+chanName);
       final MethodChannel channel =
-          MethodChannel('plugins.flutter.io/camera/camera$cameraId');
+          MethodChannel(chanName);
       channel.setMethodCallHandler(
           (MethodCall call) => handleCameraMethodCall(call, cameraId));
       return channel;
@@ -132,6 +134,7 @@ class ELinuxCamera extends CameraPlatform {
 
     final Completer<void> completer = Completer<void>();
     onCameraInitialized(cameraId).first.then((CameraInitializedEvent value) {
+      stderr.writeln('mschaff: elinux_camera.dart onCameraInitialized elinux Interface id: '+ cameraId.toString());
       completer.complete();
     });
 
@@ -177,7 +180,7 @@ class ELinuxCamera extends CameraPlatform {
 
   @override
   Stream<CameraInitializedEvent> onCameraInitialized(int cameraId) {
-    developer.log('onCameraInitialized', name: '');
+    stderr.writeln('mschaff: elinux_camera.dart onCameraInitialized elinux camera id: '+ cameraId.toString());
     return _cameraEvents(cameraId).whereType<CameraInitializedEvent>();
   }
 
@@ -203,6 +206,7 @@ class ELinuxCamera extends CameraPlatform {
 
   @override
   Stream<DeviceOrientationChangedEvent> onDeviceOrientationChanged() {
+    stderr.writeln('mschaff: elinux_camera.dart onDeviceOrientationChanged ');
     return _deviceEventStreamController.stream
         .whereType<DeviceOrientationChangedEvent>();
   }
@@ -573,6 +577,7 @@ class ELinuxCamera extends CameraPlatform {
 
   /// Converts messages received from the native platform into device events.
   Future<dynamic> _handleDeviceMethodCall(MethodCall call) async {
+    stderr.writeln('mschaff: elinux_camera.dart handleDeviceMethodCall -> orientation_changed');
     switch (call.method) {
       case 'orientation_changed':
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
@@ -590,20 +595,20 @@ class ELinuxCamera extends CameraPlatform {
   /// the plugin as it may break or change at any time.
   @visibleForTesting
   Future<dynamic> handleCameraMethodCall(MethodCall call, int cameraId) async {
-    developer.log('handleCameraMethodCall elinux Interface ' + call.method,
-        name: 'my.app.mschaff');
+    stderr.writeln('mschaff: elinux_camera.dart handleCameraMethodCall ->'+call.method);
     switch (call.method) {
       case 'initialized':
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
         cameraEventStreamController.add(CameraInitializedEvent(
           cameraId,
-          arguments['previewWidthBreak']! as double,
+          arguments['previewWidth']! as double,
           arguments['previewHeight']! as double,
           deserializeExposureMode(arguments['exposureMode']! as String),
           arguments['exposurePointSupported']! as bool,
           deserializeFocusMode(arguments['focusMode']! as String),
           arguments['focusPointSupported']! as bool,
         ));
+        stderr.writeln('mschaff: elinux_camera.dart handleCameraMethodCall finished: '+call.method);
         break;
       case 'resolution_changed':
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
