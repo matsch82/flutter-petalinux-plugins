@@ -24,6 +24,7 @@ class ELinuxCamera extends CameraPlatform {
   /// Registers this class as the default instance of [CameraPlatform].
   static void registerWith() {
     CameraPlatform.instance = ELinuxCamera();
+    stderr.writeln("mschaff: ELinuxCamera created");
   }
 
   final Map<int, MethodChannel> _channels = <int, MethodChannel>{};
@@ -120,8 +121,7 @@ class ELinuxCamera extends CameraPlatform {
     int cameraId, {
     ImageFormatGroup imageFormatGroup = ImageFormatGroup.unknown,
   }) {
-    developer.log('initializeCamera elinux Interface ', name: 'my.app.mschaff');
-    stderr.writeln('initializeCamera elinux Interface ');
+    stderr.writeln('initializeCamera elinux Interface id: '+cameraId);
     _channels.putIfAbsent(cameraId, () {
       final MethodChannel channel =
           MethodChannel('plugins.flutter.io/camera/camera$cameraId');
