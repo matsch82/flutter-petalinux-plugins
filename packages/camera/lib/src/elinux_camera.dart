@@ -46,7 +46,6 @@ class ELinuxCamera extends CameraPlatform {
   final StreamController<CameraEvent> cameraEventStreamController =
       StreamController<CameraEvent>.broadcast();
 
-
   /// The controller we need to broadcast the different events coming
   /// from handleMethodCall, specific to general device events.
   ///
@@ -70,7 +69,7 @@ class ELinuxCamera extends CameraPlatform {
 
   Stream<CameraEvent> _cameraEvents(int cameraId) =>
       cameraEventStreamController.stream
-          .where((CameraEvent event) => true);
+          .where((CameraEvent event) => event.cameraId == cameraId);
 
   @override
   Future<List<CameraDescription>> availableCameras() async {
@@ -578,7 +577,7 @@ class ELinuxCamera extends CameraPlatform {
 
   /// Converts messages received from the native platform into device events.
   Future<dynamic> _handleDeviceMethodCall(MethodCall call) async {
-    stderr.writeln('mschaff: elinux_camera.dart handleDeviceMethodCall -> orientation_changed');
+    stderr.writeln('mschaff: elinux_camera.dart _handleDeviceMethodCall ');
     switch (call.method) {
       case 'orientation_changed':
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
@@ -609,7 +608,6 @@ class ELinuxCamera extends CameraPlatform {
           deserializeFocusMode(arguments['focusMode']! as String),
           arguments['focusPointSupported']! as bool,
         ));
-        stderr.writeln('mschaff: elinux_camera.dart handleCameraMethodCall finished: '+call.method);
         break;
       case 'resolution_changed':
         final Map<String, Object?> arguments = _getArgumentDictionary(call);
