@@ -46,6 +46,7 @@ class ELinuxCamera extends CameraPlatform {
   final StreamController<CameraEvent> cameraEventStreamController =
       StreamController<CameraEvent>.broadcast();
 
+
   /// The controller we need to broadcast the different events coming
   /// from handleMethodCall, specific to general device events.
   ///
@@ -69,7 +70,7 @@ class ELinuxCamera extends CameraPlatform {
 
   Stream<CameraEvent> _cameraEvents(int cameraId) =>
       cameraEventStreamController.stream
-          .where((CameraEvent event) => event.cameraId == cameraId);
+          .where((CameraEvent event) => true);
 
   @override
   Future<List<CameraDescription>> availableCameras() async {
