@@ -7,6 +7,8 @@
 /// An example of using the plugin, controlling lifecycle and playback of the
 /// video.
 
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:video_player/video_player.dart';
@@ -22,6 +24,8 @@ void main() {
 class _App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    stderr.writeln("mschaff");
+    stderr.writeln(defaultTargetPlatform);
     return Scaffold(
       body: _ButterFlyAssetVideo(),
     );
