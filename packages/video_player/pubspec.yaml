@@ -16,6 +16,6 @@ dependencies:
 flutter:
   plugin:
     platforms:
-      elinux:
+      linux:
         pluginClass: VideoPlayerElinuxPlugin
         dartPluginClass: ELinuxVideoPlayer
