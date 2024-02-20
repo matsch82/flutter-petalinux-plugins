@@ -3,8 +3,9 @@
 // found in the LICENSE file.
 
 // #docregion FullAppExample
-import 'dart:io';
+
 import 'package:camera/camera.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 
 late List<CameraDescription> _cameras;
@@ -13,10 +14,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   _cameras = await availableCameras();
-  stderr.writeln("mschaff cameras: ");
-  for (final c in _cameras) {
-    stderr.writeln("camera: " + c.name);
-  }
   runApp(const CameraApp());
 }
 
@@ -35,9 +32,8 @@ class _CameraAppState extends State<CameraApp> {
   @override
   void initState() {
     super.initState();
-    controller = CameraController(_cameras[0], ResolutionPreset.max);
+    controller = CameraController(_cameras[1], ResolutionPreset.max);
     controller.initialize().then((_) {
-      stderr.writeln("mschaff: controller.initialize finish");
       if (!mounted) {
         return;
       }
@@ -68,8 +64,17 @@ class _CameraAppState extends State<CameraApp> {
       return Container();
     }
     return MaterialApp(
-      home: CameraPreview(controller),
-    );
+        home: Stack(children: <Widget>[
+      CameraPreview(controller),
+      Align(
+        alignment: Alignment.center,
+        child: Opacity(
+          opacity: 0.7,
+          child:
+              SvgPicture.asset("assets/cs_logo_2.svg", width: 400, height: 400),
+        ),
+      ),
+    ]));
   }
 }
 // #enddocregion FullAppExample
