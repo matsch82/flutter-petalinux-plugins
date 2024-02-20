@@ -11,10 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  video_player_platform_interface: ^6.1.0
+  video_player_platform_interface: ^6.2.1
 
 flutter:
   plugin:
     platforms:
       elinux:
+        pluginClass: VideoPlayerElinuxPlugin
         dartPluginClass: ELinuxVideoPlayer
